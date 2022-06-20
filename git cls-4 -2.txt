@@ -1,0 +1,108 @@
+main- base
+
+mgmt_ip: 10.0.0.1
+sdn_controller: 10.20.2.2
+Vlans:
+  red:
+    id: 10
+  blue:
+    id:20
+ports:
+ 1: [ 20 ]
+ 2: [ 10 ]
+ 3: [ 10, 20 ]
+auth_server: 10.30.3.3
+
+
+
+
+dev
+
+mgmt_ip: 10.0.0.1
+sdn_controller: 10.20.2.2
+Vlans:
+  green:
+    id: 10
+  blue:
+    id:20
+ports:
+ 1: [ 10 ]
+ 2: [ 20 ]
+ 3: [ 10, 20 ]
+auth_server: 10.30.3.3
+
+
+
+
+
+
+
+modified-main 
+
+
+
+mgmt_ip: 10.0.2.2
+sdn_controller: 10.20.2.2
+Vlans:
+  pink:
+    id: 10
+  blue:
+    id:20
+ports:
+ 1: [ 20 ]
+ 3: [ 10, 20 ]
+auth_server: 10.30.3.3
+
+
+
+
+vim s1 in (main-merged)
+
+mgmt_ip: 10.0.2.2
+sdn_controller: 10.20.2.2
+Vlans:
+<<<<<<< HEAD
+  pink:
+=======
+  green:
+>>>>>>> dev
+    id: 10
+  blue:
+    id:20
+ports:
+<<<<<<< HEAD
+ 1: [ 20 ]
+=======
+ 1: [ 10 ]
+ 2: [ 20 ]
+>>>>>>> dev
+ 3: [ 10, 20 ]
+auth_server: 10.30.3.3
+
+
+
+
+
+remove conflicts in s1 --> main
+
+
+
+
+mgmt_ip: 10.0.2.2
+sdn_controller: 10.20.2.2
+Vlans:
+pink:
+    id: 10
+  blue:
+    id:20
+ports:
+ 1: [ 10 ]
+ 2: [ 20 ]
+ 3: [ 10, 20 ]
+auth_server: 10.30.3.3
+
+
+
+
+
+

@@ -1,0 +1,53 @@
+
+       git config --global user.name "ayyappamottupalli"
+   59  git config --global user.email "ayyappa9848640924@gmail.com"
+   60  git config -l
+   61  git clone https://github.com/ayyappamottupalli/mumbai-repo.git
+   62  ls
+   63  cd mumbai-repo/
+   64  ls
+   65  touch file.txt
+   66  vim file.txt
+   67  git add .
+   68  git commit -m "new file"
+   69  git push origin main
+   70  ls
+   71  git status
+   74  git config --global credential.helper cache
+   75  git pull
+   76  git push
+   77  history
+
+
+to remove credentials from vm then command 
+
+git config --global --unset credential.helper 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+git clone https://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@github.com/ayyappamottupalli/repo.git 
+
+
+
+
+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
+
+git clone https://<token>@github.com/owner/repo.git
+
+
+
+https://github.com/ayyappamottupalli/mumbai-repo.git
+
+
+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

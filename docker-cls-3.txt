@@ -1,0 +1,28 @@
+root@ip-172-31-25-196:~/docker_scripts# vim Dockerfile
+root@ip-172-31-25-196:~/docker_scripts# ls
+Dockerfile
+root@ip-172-31-25-196:~/docker_scripts# cat Dockerfile
+
+
+Dockerfile for custamized image
+
+
+FROM ubuntu:18.04
+RUN apt-get update
+RUN apt-get install -y apache2
+RUN echo "<html> Build this image using Dockerfile </html>" > /var/www/html/index.html
+RUN apt-get clean
+EXPOSE 80
+CMD ["apache2ctl", "-D", "FOREGROUND"]
+
+
+
+
+
+
+docker file for volume
+Docker file example:
+
+RUN mkdir /devopsvol
+RUN echo 'Hello World' >> /devopsvol/hello.txt
+VOLUME /devopsvol

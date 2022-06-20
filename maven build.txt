@@ -1,0 +1,22 @@
+ mvn --version
+  392  mvn clean install
+  393  mvn vlidate
+  394  mvn validate
+  395  ls
+  396  touch ayyappa.html
+  397  vi ayyappa.html
+  398  mvn validate ayyappa.html
+  399  mvn build
+  400  mvn build ayyappa.html
+  401  mvn archetype:generate
+  402  ls
+  403  cd ayyappamani/
+  404  ls
+  405  history
+
+
+
+ERROR: No such file /var/lib/jenkins/workspace/maven-job/pom.xml
+Perhaps you need to specify the correct POM file path in the project configuration?
+[DeployPublisher][INFO] Build failed, project not deployed
+Finished: FAILURE

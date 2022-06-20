@@ -1,0 +1,107 @@
+how to create instance with with previous created security group tags
+
+
+
+
+
+resource "aws_instance" "demo_ec2" {
+  ami             = "ami-0d2986f2e8c0f7d01"
+  instance_type   = "t2.micro"
+  security_groups = ["${aws_security_group.allow_ssh.name}"]
+
+  tags = {
+    Name = "demo-tf-ec2"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+How to create security group the syntex would be
+
+
+
+
+
+resource "aws_security_group" "allow_ssh" {
+  name        ="allow_ssh"
+  description = "Allow ssh traffic"
+
+   ingress {
+     from_port  =22 
+
+     to_port      =22
+     protocol      ="tcp"
+     
+     cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+
+
+
+
+
+how to create s3 in terraform
+
+
+
+
+resource "aws_s3_bucket" "b" {
+  bucket = "manikanta9848955"
+
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
+  }
+}
+
+resource "aws_s3_bucket_acl" "example" {
+  bucket = aws_s3_bucket.b.id
+  acl    = "private"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+How to create security group the syntex would be
+
+
+
+
+
+resource "aws_security_group" "allow_ssh" {
+  name        ="allow_ssh"
+  description = "Allow ssh traffic"
+
+   ingress {
+     from_port  =22 
+
+     to_port      =22
+     protocol      ="tcp"
+     
+     cidr_blocks = ["0.0.0.0/0"]
+  }
+}

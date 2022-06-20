@@ -1,0 +1,52 @@
+Soumya K at 16:24, May 14:
+Hi saimanikanta
+my problem is
+
+Ayyappa Sai Motupalli. Hope you are doing good. My name is Soumya. How may I assist you today?
+Hi sai manikanta. Hope you are doing good. My name is Soumya. How may I assist you today? I really apologize for the inconvenience caused.
+
+Ayyappa Sai Motupalli at 16:24, May 14:
+
+I was updated my AWS rote53 name servers in my domain 50 hours back
+
+but still iam not able to browse my Domain
+resolve my issue
+
+Soumya K at 16:28, May 14:
+I am very sorry to hear this, but do not worry, i will help you out. May I know the domain name please?
+
+Ayyappa Sai Motupalli at 16:26, May 14:
+saimanikanta.co
+
+Soumya K at 16:29, May 14:
+
+Thanks for sharing. Before we proceed further, could you please provide your customer ID and 4 digit pin the secure forms?
+
+Soumya K has sent you a Secure Form: PIN and Customer Number
+Ayyappa Sai Motupalli at 16:26, May 14:
+ok
+
+Customer #: 468011840
+Soumya K at 16:30, May 14:
+Could you please help me with pin as well?
+Ayyappa Sai Motupalli at 16:29, May 14:
+5832
+
+Soumya K at 16:32, May 14:
+
+
+Thank you for the validation. May I know the error you are getting please?
+Now
+
+
+I see that your nameservers are with third party and the nameservers are propagated you can check it from here
+
+
+
+https://www.whatsmydns.net/?utm_source=whatsmydns.com&utm_medium=redirect#NS/saimanikanta.co
+
+
+
+
+as the DNS is not managed by us if your site is not live we can not able to troubleshoot anything, I request you to please contact your nameservers provider
+

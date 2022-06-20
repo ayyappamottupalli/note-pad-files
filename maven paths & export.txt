@@ -1,0 +1,26 @@
+export JAVA_HOME=/usr/lib/jvm/default-java
+/usr/lib/jvm/java-11-openjdk-amd64
+
+
+
+
+export M2_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
+
+
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export M2_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
+
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export M2_HOME=/usr/share/maven
+export PATH=${M2_HOME}/bin:${PATH}
+
+
+
+
+
+
+/usr/share/maven

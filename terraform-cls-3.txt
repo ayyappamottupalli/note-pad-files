@@ -1,0 +1,312 @@
+creating vpc
+Basic usage:
+
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
+
+
+
+
+creating vpc with some tag
+Basic usage with tags:
+
+
+
+resource "aws_vpc" "main" {
+  cidr_block       = "10.0.0.0/16"
+  instance_tenancy = "default"
+
+  tags = {
+    Name = "main"
+  }
+}
+
+
+
+FOR SUBNETS
+
+Basic Usage
+
+
+resource "aws_subnet" "main" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24"
+
+  tags = {
+    Name = "Main"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+VPC with CIDR from AWS IPAM:
+
+
+
+
+data "aws_region" "current" {}
+
+resource "aws_vpc_ipam" "test" {
+  operating_regions {
+    region_name = data.aws_region.current.name
+  }
+}
+
+resource "aws_vpc_ipam_pool" "test" {
+  address_family = "ipv4"
+  ipam_scope_id  = aws_vpc_ipam.test.private_default_scope_id
+  locale         = data.aws_region.current.name
+}
+
+resource "aws_vpc_ipam_pool_cidr" "test" {
+  ipam_pool_id = aws_vpc_ipam_pool.test.id
+  cidr         = "172.2.0.0/16"
+}
+
+resource "aws_vpc" "test" {
+  ipv4_ipam_pool_id   = aws_vpc_ipam_pool.test.id
+  ipv4_netmask_length = 28
+  depends_on = [
+    aws_vpc_ipam_pool_cidr.test
+  ]
+}
+
+
+
+
+
+
+
+
+FOR SUBNETS
+
+Basic Usage
+
+
+resource "aws_subnet" "main" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24"
+
+  tags = {
+    Name = "Main"
+  }
+}
+
+
+
+
+
+
+Subnets In Secondary VPC CIDR Blocks
+When managing subnets in one of a VPC's secondary CIDR blocks created using a aws_vpc_ipv4_cidr_block_association resource, it is recommended to reference that resource's vpc_id attribute to ensure correct dependency ordering.
+
+
+
+
+resource "aws_vpc_ipv4_cidr_block_association" "secondary_cidr" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "172.2.0.0/16"
+}
+
+resource "aws_subnet" "in_secondary_cidr" {
+  vpc_id     = aws_vpc_ipv4_cidr_block_association.secondary_cidr.vpc_id
+  cidr_block = "172.2.0.0/24"
+}
+
+
+
+
+about veriables
+
+
+
+resource "aws_vpc" "example" {
+  cidr_block = "10.0.0.0/16"
+}
+
+
+
+
+
+
+Terraform 0.13 and later:
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+}
+
+# Configure the AWS Provider
+provider "aws" {
+  region = "us-east-1"
+}
+
+# Create a VPC
+resource "aws_vpc" "example" {
+  cidr_block = "10.0.0.0/16"
+}
+
+
+
+
+to define vpc .file=vpc.tf
+
+syntex block for one vpc and one subnet in region
+
+
+resource "aws_vpc" "TF_vpc" {
+  cidr_block      ="${var.vpc_cidr}"
+  instance_tenancy = "default"
+
+  tags ={
+    Name ="TF_vpc"
+    Location = "HYD"
+    }
+}
+
+resource "aws_subnet" "subnet_1" {
+   vpc_id    = "${aws_vpc.TF_vpc.id}"
+   cidr_block = "${var.subnet_cidr}"
+   
+   tags ={
+     Name = " TF_subnet"
+    }
+}
+
+
+
+
+
+
+to define veriables file=vars.tf
+
+
+
+
+variable "region" {
+   default = "ap-south-1"
+}
+
+variable "vpc_cidr" {
+  default = "10.0.0.0/16"
+}
+
+variable "subnet_cidr" {
+  default = "10.0.0.0/24"
+}
+
+
+
+
+
+
+
+
+
+
+To create one vpc
+and subnet-file= vim.tf 
+
+
+
+
+resource "aws_vpc" "TF_vpc" {
+  cidr_block       = var.vpc_cidr
+  instance_tenancy = "default"
+
+  tags = {
+    Name     = "TF_vpc"
+    Location = "HYD"
+  }
+}
+
+resource "aws_subnet" "subnet_1" {
+  vpc_id     = aws_vpc.TF_vpc.id
+  cidr_block = var.subnet_cidr
+
+  tags = {
+    Name = " TF_subnet"
+  }
+}
+
+
+
+
+
+
+to define variables
+
+
+
+
+
+
+ to define vpc & subnets a b c
+file= vpc.tf
+
+
+resource "aws_vpc" "TF_vpc" {
+  cidr_block       ="${var.vpc_cidr}"
+  instance_tenancy = "default"
+
+  tags = {
+    Name     = "TF_vpc"
+    Location = "HYD"
+  }
+}
+
+resource "aws_subnet" "subnets" {
+   count = "${length(var.azs)}"
+  vpc_id     ="${aws_vpc.TF_vpc.id}"
+  cidr_block ="${element(var.subnet_cidr,count.index)}"
+  tags = {
+    Name = "subnet-${count.index+1} "
+  }
+}
+
+
+
+
+
+
+root@ip-172-31-19-113:~/terraform_scripts/manivpc# cat vars.tf
+
+variable "region" {
+  default = "ap-south-1"
+}
+
+variable "vpc_cidr" {
+  default = "10.0.0.0/16"
+}
+
+variable "subnet_cidr" {
+     type = list
+     default = [ "10.0.0.0/24","10.0.1.0/24","10.0.2.0/24" ]
+   }
+variable "azs" {
+   type  = list
+  default = ["ap-south-1a","ap-south-1b","ap-south-1b"]
+
+ }
+

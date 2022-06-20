@@ -1,0 +1,7 @@
+aws eks update-kubeconfig --name demo-eks-cluster --region us-east-2
+
+demo-eks-cluster
+
+
+
+nslookup https://E59EF2437178D7B6F74B197D1A018BDB.gr7.us-east-2.eks.amazonaws.com

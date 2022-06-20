@@ -1,0 +1,8 @@
+aws opsworks delete-instance \
+    --region us-east-2 \
+    --instance-id i-0474d0d05d4c2b240
+
+aws ec2 terminate-instances --instance-ids i-0474d0d05d4c2b240
+
+aws ec2 describe-instances --filters "Name=instance-type,Values=t2.micro" --query "Reservations[].Instances[].InstanceId"
+ 

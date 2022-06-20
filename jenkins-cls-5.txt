@@ -1,0 +1,41 @@
+https://www.vultr.com/docs/how-to-install-apache-maven-on-ubuntu-16.04 ----> install maven pkg.
+
+https://www.vultr.com/docs/how-to-install-apache-maven-on-ubuntu-16-04
+
+http: //apache.mirrors.pair.com/maven/maven-3
+
+tar -xvzf apache-maven-3.6.3-bin.tar.gz
+
+
+
+
+wget http://apache.mirrors.pair.com/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+
+wget http://apache.mirrors.pair.com/maven/maven-3/3.8.5/binaries/apache-maven-3.8.5-bin.tar.gz
+
+tar -xvzf apache-maven-3.8.5-bin.tar.gz
+
+
+
+ wget https://www-us.apache.org/dist/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz
+
+vim apache
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=${JAVA_HOME}/bin:${PATH}
+
+
+
+
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=${JAVA_HOME}/bin:${PATH}
+export M2_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
+
+
+
+
+
+
+
+ /usr/lib/jvm/java-11-openjdk-amd64

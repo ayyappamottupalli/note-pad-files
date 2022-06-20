@@ -1,0 +1,18 @@
+pod file .yaml format for creation of pod
+root@ip-172-31-25-196:~/k8s# vim nginx-pod.yaml
+
+
+
+
+---
+   apiVersion: v1
+   kind: Pod
+   metadata:
+     name: nginx-pod
+     labels:
+       app: nginx
+       tier: dev
+   spec:
+     containers:
+     - name: nginx-container
+       image: nginx

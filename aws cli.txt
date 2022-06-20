@@ -1,0 +1,45 @@
+
+
+Example 2: To launch an instance into a non-default subnet and add a public IP address
+
+The following run-instances example requests a public IP address for an instance that you’re launching into a nondefault subnet. The instance is associated with the specified security group.
+
+aws ec2 run-instances \
+    --image-id ami-0cfedf42e63bba657 \
+    --instance-type t2.micro \
+    --subnet-id subnet-0f7f03839a2e7f275 \
+    --security-group-ids sg-079cc1b3718eb8f1b \
+    --key-name pvtpemkey
+
+
+
+aws ec2 run-instances \
+    --image-id ami-0cfedf42e63bba657 \
+    --instance-type t2.micro \
+    --subnet-id subnet-0f7f03839a2e7f275 \
+    --security-group-ids sg-079cc1b3718eb8f1b \
+    --associate-10.0.0.10/19 \
+    --key-name pvtpemkey
+
+
+
+
+aws ec2 describe-instances --filters "Name=instance-type,Values=t2.micro" --query "Reservations[].Instances[].InstanceId"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ami-0cfedf42e63bba657
+subnet-0f7f03839a2e7f275
+sg-079cc1b3718eb8f1b
+pvtpemkey.pem 

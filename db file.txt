@@ -1,0 +1,55 @@
+
+apt-get update
+apt-get install mysql-client
+
+
+
+root # mysql -h database2022.c9usquqgj2ff.us-east-2.rds.amazonaws.com  -P 3306 -u database2022 -p
+password-   database2022
+
+mysql> show databases;
+mysql> use manikantadatabase;
+mysql> show tables;
+
+mysql>CREATE TABLE Students ( StudentID int, LastName varchar(255),FirstName varchar(255),City varchar(255) );
+       Query OK, 0 rows affected (0.01 sec)   
+
+INSERT INTO Students ( StudentID, LastName, FirstName, City) VALUES ( "001", "Kumar01", "M", "Singapore" );
+INSERT INTO Students ( StudentID, LastName, FirstName, City) VALUES ( "002", "Kumar02", "A", "Singapore" );
+INSERT INTO Students ( StudentID, LastName, FirstName, City) VALUES ( "003", "Kumar03", "A", "Singapore" );
+INSERT INTO Students ( StudentID, LastName, FirstName, City) VALUES ( "004", "Kumar04", "L", "Singapore" );
+INSERT INTO Students ( StudentID, LastName, FirstName, City) VALUES ( "005", "nagendra", "g", "akiveedu" );
+
+Query OK, 1 row affected (0.00 sec)
+
+
+
+
+
+
+mysql> select * from Students;
+
++-----------+----------+-----------+-----------+
+| StudentID | LastName | FirstName | City      |
++-----------+----------+-----------+-----------+
+|         1 | Kumar01  | M         | Singapore |
+|         2 | Kumar02  | A         | Singapore |
+|         3 | Kumar03  | A         | Singapore |
+|         4 | Kumar04  | L         | Singapore |
++-----------+----------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+
+
+mysql> use mysql;
+
+database changed to mysql database
+
+mysql> select * from students;
+it shows error 
+why because data base changed to mysql.in this database we did't created any table.If you want table then again changed to that created  database by using command.
+
+mysql> use manikantadatabase;
+
+if you want to delete tables from manikanta database then the command is 
+mysql> drop tables Students;

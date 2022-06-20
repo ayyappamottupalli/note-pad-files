@@ -1,0 +1,22 @@
+root@ip-172-31-25-196:~/k8s# vim nginx-rc.yaml
+
+
+ apiVersion: v1
+ kind: ReplicationController
+ metadata:
+   name: nginx-rc
+ spec:
+   replicas: 3
+   selector:
+     app: nginx-app
+   template:
+     metadata:
+       name: nginx-pod
+       labels:
+          app: nginx-app
+     spec:
+       containers:
+       - name: nginx-container
+         image: nginx
+         ports:
+           - containerPort: 80

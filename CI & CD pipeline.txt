@@ -1,0 +1,25 @@
+
+
+pipeline{
+   agent any
+   tools {
+       maven 'Maven 3.6.3'
+   }
+   stages{
+     stage('Checkout stage'){
+        steps{
+           git 'https://github.com/ayyappamottupalli/java-hello-world-webapp.git'
+}
+}
+     stage('Build-stage'){
+        steps{
+            sh 'mvn clean package'
+            sh 'mv target/*.war target/demo.war'
+
+}
+}
+
+}
+}
+
+

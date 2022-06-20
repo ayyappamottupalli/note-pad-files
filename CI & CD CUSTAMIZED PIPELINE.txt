@@ -1,0 +1,25 @@
+
+pipeline{
+    agent any
+stages{
+    stage("Git code clone"){
+    steps{
+        git 'https://github.com/nagendrak596/demo123.git'
+        
+    }
+    }
+    stage("Build stage"){
+        steps
+        {
+            sh 'mvn clean install'
+        }
+    }
+    stage("Deploy"){
+        steps{
+            sshagent(['tomcat_ssh_pem']){
+           sh 'scp -o StrictHostkeyChecking=no /var/lib/jenkins/workspace/demo_pipeline/target/demo123.war ubuntu@172.31.11.76:/var/lib/tomcat8/webapps/'
+        }
+    }
+    } 
+}
+}

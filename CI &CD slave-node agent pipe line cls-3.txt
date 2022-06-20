@@ -1,0 +1,53 @@
+
+
+pipeline{
+    agent {label 'slave-01'}
+stages{
+    stage("Git code clone"){
+    steps{
+        git 'https://github.com/ayyappamottupalli/java-hello-world-webapp.git'
+        
+    }
+    }
+    stage("Build stage"){
+        steps
+        {
+            sh 'mvn clean install'
+        }
+    }
+    stage("Deploy"){
+        steps{
+            sh 'cp /opt/slave-node/workspace/pipeline-job-1/target/java-hello-world.war /var/lib/tomcat9/webapps/'
+    }
+    } 
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+agent examples
+
+
+
+pipeline {
+
+agent {
+  label {
+        label "windows"
+  
+/opt/slave-node/workspace/pipeline-job-1/target/java-hello-world.war
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+how to create instance in terraform
+
+
+
+resource "aws_instance" "webins_4" {
+  ami           = "ami-0851b76e8b1bce90b"
+  instance_type = "t2.micro"
+}
+
+
+how to create terraform instance with tags.
+
+
+resource "aws_instance" "webins_4" {
+  ami           = "ami-0851b76e8b1bce90b"
+  instance_type = "t2.micro"
+
+tags = {
+     Name = "demo-tf-ec2"
+     }
+}
+
+
+
+
+How to create s3 bucket in terraform 
+
+
+
+resource "aws_s3_bucket" "b" {
+  bucket = "manikanta9848955"
+
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
+  }
+}
+
+resource "aws_s3_bucket_acl" "example" {
+  bucket = aws_s3_bucket.b.id
+  acl    = "private"
+}

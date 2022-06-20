@@ -1,0 +1,139 @@
+
+[devopspractice]
+172.31.14.141   ansible_ssh_user=ubuntu   ansible_ssh_private_key_file=/root/class7keypair.pem
+172.31.19.113   ansible_ssh_user=ubuntu   ansible_ssh_private_key_file=/root/class7keypair.pem
+ 
+
+
+
+[devopspractice]
+172.31.42.149   ansible_ssh_user=ubuntu   ansible_ssh_private_key_file=/root/node1keypair.pem
+172.31.42.190   ansible_ssh_user=ubuntu   ansible_ssh_private_key_file=/root/node2keypair.pem
+
+
+
+
+
+
+
+
+vim pkg.yml
+playbook must be in .yml format
+
+
+
+
+
+The common 4 lines in every playbook
+
+
+---
+- hosts: devopsgroup
+  become: yes
+  tasks:
+  
+
+
+If you want to install apache httpd
+ in nodes from master then yml format should be in
+
+
+---
+- hosts: devopspractice
+  become: yes
+  tasks:
+  - name: Install apache httpd on ec2 instance
+    apt:
+      name: apache2
+      state: present
+...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+If you want to install apache in nodes from master then yml format should be in
+
+
+
+---
+- hosts: devopsgroup
+  become: true
+  tasks:
+  - name: Install apache httpd  (state=present is optional)
+    apt:
+      name: apache2
+      state: present
+
+...
+
+
+
+If you want to unistall apache in nodes from master then yml format should be in
+
+
+
+---
+- hosts: devopsgroup
+  become: true
+  tasks:
+  - name: Install apache package on ec2 instances
+    apt:
+      name: apache2
+      state: absent
+...
+
+
+
+
+If you want to install latest version of apache in nodes from master then yml format should be in
+
+
+
+---
+- hosts: ec2_group
+  become:true
+  tasks:
+  - name: install apache pkg
+    apt:
+      name: apache2
+      state: latest
+...
+
+
+
+
+
+
+
+If you want to install 2 tasks  in nodes from master then yml format should be in
+
+
+
+---
+- hosts: ec2_group
+  become:true
+  tasks:
+  - name: install apache pkg
+    apt:
+      name: apache2
+      state: present
+   
+  - name: second task
+
+...      
+
+
+
+
+ansible all -m file -a "dest=/tmp/mani mode=777"

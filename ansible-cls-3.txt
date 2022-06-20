@@ -1,0 +1,111 @@
+hadoop commands for ansible to use instead of playbook.
+
+
+
+ansible devopspractice  -m apt -a "name=apache2 state=present" --become
+
+
+ ansible devopspractice  -m service -a "name=apache2 state=stopped"
+
+ ansible devopspractice  -m service -a "name=apache2 state=started"
+
+
+
+ansible devopspractice -m copy -a "src=/root/playbooks/sai.yml dest=/tmp/"
+
+
+
+variable examples
+
+
+---
+- hosts: localhost
+  vars:
+   demo_var1: Welcome to the skillpedia!
+  tasks:
+  - name: Variable Example in Ansible
+    debug:
+      msg: "{{ demo_var1 }}"
+
+
+
+
+
+variable example
+
+
+---
+- hosts: localhost
+  vars:
+   Countries:
+     - India
+     - Nepal
+     - United States
+     - China
+     - Singapore
+     - France
+  tasks:
+  - name: List variable in Ansible
+    debug:
+      msg: "{{ Countries }}"
+
+
+
+output
+
+ok: [localhost] => {
+    "msg": [
+        "India",
+        "Nepal",
+        "United States",
+        "China",
+        "Singapore",
+        "France"
+    ]
+
+
+
+
+
+for example if you want to print only India in out then modify yml file by...
+
+
+---
+- hosts: localhost
+  vars:
+   Countries:
+     - India
+     - Nepal
+     - United States
+     - China
+     - Singapore
+     - France
+  tasks:
+  - name: List variable in Ansible
+    debug:
+      msg: "{{ Countries[0] }}"
+
+
+
+output
+
+ok: [localhost] => {
+    "msg": "India"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

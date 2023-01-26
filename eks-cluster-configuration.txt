@@ -1,0 +1,193 @@
+ aws configure
+ aws iam list-users
+ aws eks update-kubeconfig --region us-west-2 --name demo-eks-cluster
+ cat .kube/config
+ export KUBECONFIG=~/.kube/config
+ kubectl get svc
+ kubectl get nodes
+ kubectl get all -A
+
+cat /etc/nginx/conf.d/default.conf
+kubectl create secret generic mysql --from-literal=password=root
+
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-cm
+  labels:
+    role: web
+spec:
+  containers:
+  - name: nginx-cm
+    image: nginx
+    env:
+    -  name: MYSQL_ROOT_PASSWORD
+       valuesFrom:
+         secretkeyRef:
+           name: mysql
+           key: password
+    volumeMounts:
+    - name: conf
+      mountPath: /etc/nginx/conf.d
+    - name: secret
+      mountPath: /secretstuff
+
+  volumes:
+  - name: conf
+    configMap:
+      name: nginx-cm
+      items:
+      - key: nginx-custom-config.conf
+        path: default.conf
+  - name: secret
+    secret:
+      secretName: secretstuff
+
+-----
+
+ vim variables
+  194  kubectl create cm variables --from-file=variables
+  195  kubectl describe cm variables
+  196  kubectl create cm variables --from-file=variables -o yaml --dry-run
+  197  ls
+  198  vim cm-pod.yaml
+  199  kubectl create -f cm-test-pod.yaml
+  200  ls
+  201  kubectl create -f cm-pod.yaml
+  202  kubectl logs test1
+  203  ls
+  204  cat cm-pod.yaml
+  205  kubectl logs test1
+  206  kubectl create cm morevars --from-literal=VAR3=HYD --from-literal=VAR4=VZD
+  207  kubectl get cm
+  208  kubectl get cm -o yaml
+  209  kubectl get cm morevars -o yaml
+  210  cat nginx-custom-config.conf
+  211  vim nginx-custom-config.conf
+  212  cat nginx-custom-config.conf
+  213   
+  214  kubectl get cm
+  215  vi nginx-cm.yml
+  216  kubectl get cm
+  217  kubectl create -f nginx-cm.yml
+  218  ls
+  219  kubectl create -f nginx-cm.yml
+  220  cat nginx-cm.yml
+  221  ls
+  222  vim nginx-cm.yml
+  223  kubectl create -f nginx-cm.yml
+  224  kubectl get pods -A
+  225  kubectl get pods
+  226  cd k
+  227  cd k8s/
+  228  ls
+  229  kubectl get pods
+  230  kubectl exec -it nginx-cm -- /bin/bash
+  231  ls
+  232  kubectl exec -it nginx-cm -- /bin/bash
+  233  kubectl get pods
+  234  ls
+  235  kubectl get pods
+  236  kubectl delete -f app.yaml
+  237  ls
+  238  kubectl get pods
+  239  kubectl get cm
+  240  ls
+  241  cd k8s/
+  242  ls
+  243  cat nginx-cm.yml
+ kubectl create cm variables --from-file=variables -o yaml --dry-run
+
+  cat nginx-custom-config.conf
+  266  kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/deployments/kubernetes/reloader.yaml
+  267  kubectl get deployment
+  268  kubectl get logs
+  269  kubectl get pods
+  270  kubectl logs test1
+  271  ls
+  272  vim variables
+  273  kubectl logs test1
+  274   kubectl create cm variables --from-file=variables -o yaml --dry-run
+  275  kubectl create cm variables --from-file=variables
+  276  kubectl get cm
+  277  kubectl delete -f nginx-cm
+  278  kubectl delete configmap nginx-cm
+  279  kubectl create cm variables --from-file=variables
+  280  kubectl delete configmap variables
+  281  kubectl create cm variables --from-file=variables
+  282  kubectl logs test1
+  283  kubectl get cm
+  284  kubectl logs test1
+  285  ls
+  286  cat variables
+  287  ls
+  288  cat nginx-custom-config.conf
+  289  cat cm-pod.yaml
+  290  kubectl logs test1
+  291  cat ganesh
+  292  cat variables
+  293  vimv
+  294  vim variables
+  295  kubectl delete configmap variables
+  296  kubectl create cm variables --from-file=variables
+  297  kubectl logs test1
+  298  kubectl get cm
+  299  kubectl logs test1
+  300  ls
+  301  cat cm-pod.yaml
+  302  cat nginx-cm.yml
+  303  ls
+  304  kubectl get cm
+  305  kubectl delete configmap my-cml
+  306  kubectl delete configmap my-cml.txt
+  307  kubectl get cm
+  308  ls
+  309  cat nginx-cm.yml
+  310  cat nginx-custom-config.conf
+  311  vim nginx-custom-config.conf
+  312  kubectl get cm
+  313  ls
+  314  kubectl create cm nginx-cm --from-file nginx-custom-config.conf
+  315  kubectl get pods
+  316  kubectl logs nginx-cm
+  317  kubectl exec -it nginx-cm -- /bin/bash
+  318  kubectl get cm nginx-cm -o yaml
+  319  kubectl exec -it nginx-cm -- /bin/bash
+  320  ls
+  321  cat nginx-custom-config.conf
+  322  history
+
+root@nginx-cm:/etc/nginx/conf.d# pwd
+/etc/nginx/conf.d/default.conf
+
+
+kubectl apply -f https://raw.githubusercontent.com/stakater/Reloader/master/deployments/kubernetes/reloader.yaml
+
+https://github.com/stakater/reloader
+
+for secrets
+
+ kubectl create secret generic my-secret --from-file=ssh-privatekey=/root/.ssh/id_rsa.pub --from-literal=passphrase=password
+kubectl get secret my-secret -o yaml
+
+kubectl create secret generic secretstuff --from-literal=password=password --from-literal=user=sai
+
+kubectl get pods
+kubectl describe pod nginx-cm
+
+kubectl exec -it nginx-cm -- /bin/bash
+
+root@nginx-cm:/# cat /secretstuff/user
+jairoot@nginx-cm:/#
+
+kubectl delete secret secretstuff
+
+
+
+	
+
+
+
+

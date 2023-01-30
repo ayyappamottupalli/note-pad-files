@@ -1,0 +1,56 @@
+
+---
+version: 0.2
+phases:
+  install:
+    commands:                 
+      - curl -sS -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator
+      - curl -sS -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/linux/amd64/kubectl
+      - curl -sS -o terraform https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip
+      - apt-get update && apt-get -y install jq python3-pip python3-dev                
+      - pip3 install rsa
+      - pip3 install typing
+      - pip3 install setuptools==39.1.0
+      - pip3 install awscli
+      - chmod +x ./kubectl ./aws-iam-authenticator ./terraform
+      - mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+      - echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
+      - kubectl version --short --client
+      - wget https://get.helm.sh/helm-v3.2.0-linux-amd64.tar.gz -O helm.tar.gz; tar -xzf helm.tar.gz
+      - chmod +x ./linux-amd64/helm
+      - mv ./linux-amd64/helm /usr/local/bin/helm
+      - ls -la
+      - helm version
+      - helm plugin install https://github.com/hypnoglow/helm-s3.git
+      
+  pre_build:
+      commands:
+        - export KUBECONFIG=$HOME/.kube/config
+  build:
+   commands:
+      - aws s3 cp s3://gehc-$REGION-855289730729-devops-artifacts/$BUCKET_PATH/$HELM_VERSION .
+      - tar -zxvf $HELM_VERSION   
+      - cd $HELM_FOLDER_NAME                
+      - pwd
+      - ls -l
+      - export HELMCHART="$( awk -F= -v x="HELMCHART" '$1==x{print $2}' helm.conf )"
+      - export HELMRELEASENAME="$( awk -F= -v x="HELMRELEASENAME" '$1==x{print $2}' helm.conf )"
+      - export HELMCOMMANDFLAG="$( awk -F= -v x="HELMCOMMANDFLAG" '$1==x{print $2}' helm.conf )"
+  post_build:
+    commands:
+      - CREDENTIALS=$(aws sts assume-role --role-arn $EKS_KUBECTL_ROLE_ARN --role-session-name codebuild-kubectl --duration-seconds 3600)
+      - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')" 
+      - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+      - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
+      - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
+      - aws sts get-caller-identity
+      - export KUBECONFIG=$HOME/.kube/config
+      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+      - cat ~/.kube/config
+      - kubectl get svc
+      - echo $HELMRELEASENAME
+      - echo $HELMCHART
+      - echo $HELMCOMMANDFLAG
+      - helm upgrade --install $HELMRELEASENAME . $HELMCOMMANDFLAG
+      - sleep 10
+      - helm list -A
